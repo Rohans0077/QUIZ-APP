@@ -1,0 +1,1 @@
+This is a simple QUIZ APP made using HTML, CSS  and Python, using Json Format data, To run the files bring it to your local system and from terminal navigate to quiz app directory and run the command "python app.py"  and the app runs.
