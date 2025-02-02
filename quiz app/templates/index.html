@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ quiz_data.title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>{{ quiz_data.title }}</h1>
+
+        <div id="quiz">
+            {% for question in quiz_data.questions %}
+            <div class="question" data-id="{{ question.id }}" style="{% if not loop.first %}display: none;{% endif %}">
+                <h3>{{ question.question }}</h3>
+                <div class="options">
+                    {% for option in question.options %}
+                    <button onclick="submitAnswer('{{ question.id }}', '{{ option[0] }}', '{{ loop.index }}')">{{ option }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div id="result" style="display: none;">
+            <h2>Quiz Completed!</h2>
+            <p id="score"></p>
+            <button onclick="restartQuiz()">Restart Quiz</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        const totalQuestions = {{ quiz_data.questions|length }};
+
+        function submitAnswer(questionId, userAnswer, questionIndex) {
+            fetch("/check_answer", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ question_id: parseInt(questionId), user_answer: userAnswer }),
+            })
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.is_correct) {
+                    score++;
+                }
+
+                // Move to the next question or display the results
+                document.querySelectorAll(".question")[currentQuestionIndex].style.display = "none";
+                currentQuestionIndex++;
+
+                if (currentQuestionIndex < totalQuestions) {
+                    document.querySelectorAll(".question")[currentQuestionIndex].style.display = "block";
+                } else {
+                    displayResults();
+                }
+            });
+        }
+
+        function displayResults() {
+            document.getElementById("quiz").style.display = "none";
+            document.getElementById("result").style.display = "block";
+            document.getElementById("score").innerText = `You scored ${score} out of ${totalQuestions}.`;
+        }
+
+        function restartQuiz() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

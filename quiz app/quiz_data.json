@@ -1,0 +1,37 @@
+{
+    "quiz": {
+        "title": "General Knowledge Quiz",
+        "questions": [
+            {
+                "id": 1,
+                "question": "What is the capital of France?",
+                "options": ["A) Paris", "B) Madrid", "C) Rome", "D) Berlin"],
+                "answer": "A"
+            },
+            {
+                "id": 2,
+                "question": "Which planet is known as the Red Planet?",
+                "options": ["A) Earth", "B) Mars", "C) Venus", "D) Jupiter"],
+                "answer": "B"
+            },
+            {
+                "id": 3,
+                "question": "Who wrote 'Hamlet'?",
+                "options": ["A) Charles Dickens", "B) William Shakespeare", "C) Mark Twain", "D) Jane Austen"],
+                "answer": "B"
+            },
+            {
+                "id": 4,
+                "question": "What is the largest mammal in the world?",
+                "options": ["A) Elephant", "B) Blue Whale", "C) Great White Shark", "D) Giraffe"],
+                "answer": "B"
+            },
+            {
+                "id": 5,
+                "question": "How many continents are there?",
+                "options": ["A) 5", "B) 6", "C) 7", "D) 8"],
+                "answer": "C"
+            }
+        ]
+    }
+}
